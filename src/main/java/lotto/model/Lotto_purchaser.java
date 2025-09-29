@@ -10,14 +10,8 @@ public class Lotto_purchaser {
     private final int costOfPurchasing;
     private List<Lotto> lottos;
 
-    // 생성자에서 금액 검증
+
     public Lotto_purchaser(int costOfPurchasing) {
-        if (costOfPurchasing < 1000) {
-            throw new IllegalArgumentException("로또 구매 금액은 최소 1000원 이상이어야 합니다.");
-        }
-        if (costOfPurchasing % 1000 != 0) {
-            throw new IllegalArgumentException("로또 구매 금액은 1000원 단위여야 합니다.");
-        }
         this.price = costOfPurchasing;
         this.costOfPurchasing = costOfPurchasing;
     }
@@ -27,8 +21,8 @@ public class Lotto_purchaser {
         return costOfPurchasing / 1000;
     }
 
-    // 랜덤 로또 생성 Todo 로또머신으로 위치를 옮김
-    public void randomPick() {
+
+    public List<List<Integer>> randomPick() {
         List<Lotto> lottos = new ArrayList<>();
         int ticketCount = costToTicketNUM();
         for (int i = 0; i < ticketCount; i++) {
@@ -36,15 +30,14 @@ public class Lotto_purchaser {
             lottos.add(new Lotto(numbers));
         }
         this.lottos = lottos;
-    }
-    //로또를 int로 반환 todo 삭제하고 머신쪽에서 구현
-    public List<List<Integer>> getLottos() {
-        List<List<Integer>> lottos = new ArrayList<>();
-        for (Lotto lotto : this.lottos) {
-            lottos.add(lotto.getNumbers());
+        List<List<Integer>> lottoList = new ArrayList<>();
+        for (Lotto lotto : lottos) {
+            lottoList.add(lotto.getNumbers());
         }
-        return lottos;
+        return lottoList;
     }
+
+
 
 
 

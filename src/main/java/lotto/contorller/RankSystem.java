@@ -5,9 +5,9 @@ import lotto.enums.Rank;
 import java.util.*;
 
 public class RankSystem {
-    List<List<Integer>> lottos;
-    List<Integer> winningNumbers;
-    int bounusNumber; // typo: bonusNumber로 수정하는 것을 권장
+    private List<List<Integer>> lottos;
+    private List<Integer> winningNumbers;
+    private int bounusNumber; // typo: bonusNumber로 수정하는 것을 권장
 
 
 
