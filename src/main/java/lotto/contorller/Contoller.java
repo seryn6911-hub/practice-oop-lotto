@@ -1,9 +1,10 @@
 package lotto.contorller;
 
-import lotto.model.Lotto;
+import lotto.enums.Rank;
 import lotto.model.Lotto_purchaser;
 import lotto.view.View;
 import java.util.List;
+import java.util.Map;
 
 public class Contoller {
     private final View view; // private final로 변경
@@ -30,21 +31,16 @@ public class Contoller {
             //보너스 번호 입력
             int bounusNumber = view.bounusNumber();
 
-            WinningStaticCalculation staticCalculation = new WinningStaticCalculation(
-                    purchaser.getLottos(), winningNumber, bounusNumber, purchasePrice);
+            RankSystem rankSystem = new RankSystem(
+                    purchaser.getLottos(), winningNumber, bounusNumber);
 
             // 통계 계산 실행
-            staticCalculation.calculateWinningStatistics();
+            Map<Rank, Integer> rank =rankSystem.calculateWinningStatistics();
+            YieldCalculation yieldCalculation = new YieldCalculation(rank, purchasePrice);
+            double profit=yieldCalculation.getLottoYield();
+            //통계출력
+            view.winningStatistics(rank,profit);
 
-            // winningStatistics 메서드 호출
-            view.winningStatistics(
-                    staticCalculation.collect6,
-                    staticCalculation.collect5AndBounus,
-                    staticCalculation.collect5,
-                    staticCalculation.collect4,
-                    staticCalculation.collect3,
-                    staticCalculation.getLottoYield()
-            );
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             throw e;

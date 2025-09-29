@@ -1,8 +1,11 @@
 package lotto.view;
 
 import lotto.enums.ErrorMessage;
+import lotto.enums.Rank;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class View {
     private final InputReader reader;
@@ -115,14 +118,18 @@ public class View {
     }
 
     // 최종 결과 출력
-    public void winningStatistics(int collect6, int collect5AndBounus, int collect5, int collect4, int collect3, double lottoYield){
+    public void winningStatistics(Map<Rank, Integer> statistics, double lottoYield) {
         System.out.println("당첨 통계");
         System.out.println("---");
-        System.out.println("3개 일치 (5,000원) - " + collect3 + "개");
-        System.out.println("4개 일치 (50,000원) - " + collect4 + "개");
-        System.out.println("5개 일치 (1,500,000원) - " + collect5 + "개");
-        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + collect5AndBounus + "개");
-        System.out.println("6개 일치 (2,000,000,000원) - " + collect6 + "개");
+
+        System.out.println("3개 일치 (5,000원) - " + statistics.get(Rank.THREE) + "개");
+        System.out.println("4개 일치 (50,000원) - " + statistics.get(Rank.FOUR) + "개");
+        System.out.println("5개 일치 (1,500,000원) - " + statistics.get(Rank.FIVE) + "개");
+        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - "
+                + statistics.get(Rank.FIVE_AND_BONUS) + "개");
+        System.out.println("6개 일치 (2,000,000,000원) - " + statistics.get(Rank.SIX) + "개");
+
         System.out.printf("총 수익률은 %.1f%%입니다.%n", lottoYield);
     }
+
 }
