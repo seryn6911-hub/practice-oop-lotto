@@ -17,6 +17,7 @@ public class WinningStaticCalculation {
     int lottoPrice;
     double LottoYield;
 
+        //TODO 반환을 KEY랑 VALUE 형태로 반환
     public WinningStaticCalculation(List<List<Integer>> lottos, List<Integer> winningNumber, int bounusNumber, int lottoPrice) {
         this.lottos = lottos;
         this.winningNumbers = winningNumber;
@@ -24,12 +25,12 @@ public class WinningStaticCalculation {
         this.lottoPrice = lottoPrice;
     }
 
-    public void calculateWinningStatistics(){
-        collect3=0;
-        collect4=0;
-        collect5=0;
-        collect5AndBounus=0;
-        collect6=0;
+    public void calculateWinningStatistics() {
+        collect3 = 0;
+        collect4 = 0;
+        collect5 = 0;
+        collect5AndBounus = 0;
+        collect6 = 0;
 
         for (List<Integer> lotto : lottos) {
             int collectNumber = 0;
@@ -40,8 +41,8 @@ public class WinningStaticCalculation {
                 boolean isWinningNumber = false;
 
                 // 당첨 번호와 일치하는지 확인
-                for(int win : winningNumbers) {
-                    if(lottoNumber == win){
+                for (int win : winningNumbers) {
+                    if (lottoNumber == win) {
                         collectNumber++;
                         isWinningNumber = true;
                         break; // 중복 카운트 방지
@@ -49,29 +50,30 @@ public class WinningStaticCalculation {
                 }
 
                 // 당첨 번호가 아닌 경우에만 보너스 번호 검사
-                if(!isWinningNumber && lottoNumber == bounusNumber){
+                if (!isWinningNumber && lottoNumber == bounusNumber) {
                     hasBonusNumber = true;
                 }
             }
 
-
-
             // 등수 판정
-            if(collectNumber == 6){
+            if (collectNumber == 6) {
                 collect6++;
-            } else if(collectNumber == 5){
-                if(hasBonusNumber){
-                    collect5AndBounus++;
-                } else {
-                    collect5++;
-                }
-            } else if(collectNumber == 4){
+            }
+            if (collectNumber == 5 && hasBonusNumber) {
+                collect5AndBounus++;
+            }
+            if (collectNumber == 5 && !hasBonusNumber) {
+                collect5++;
+            }
+            if (collectNumber == 4) {
                 collect4++;
-            } else if(collectNumber == 3){
+            }
+            if (collectNumber == 3) {
                 collect3++;
             }
         }
     }
+
 
     private void calculateYield() {
         long totalPrize = (long)collect6 * 2000000000L +

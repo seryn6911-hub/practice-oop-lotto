@@ -1,8 +1,6 @@
 package lotto.view;
 
-import lotto.model.Lotto;
-import lotto.model.Lotto_purchaser;
-
+import lotto.enums.ErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,26 +20,26 @@ public class View {
 
             // 빈 입력 체크
             if (line.isEmpty()) {
-                throw new IllegalArgumentException("로또 금액이 없음");
+                throw new IllegalArgumentException(ErrorMessage.EMPTY_PURCHASE_AMOUNT.getMessage());
             }
 
             int purchasePrice = Integer.parseInt(line);
 
             // 음수 또는 0 체크
             if (purchasePrice <= 0) {
-                throw new IllegalArgumentException("로또 금액이 음수");
+                throw new IllegalArgumentException(ErrorMessage.INVALID_AMOUNT.getMessage());
             }
 
             // 1000원 단위 체크
             if (purchasePrice % 1000 != 0) {
-                throw new IllegalArgumentException("1000원 단위가 아님");
+                throw new IllegalArgumentException(ErrorMessage.INVALID_AMOUNT.getMessage());
             }
 
             System.out.println();
             return purchasePrice;
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 로또 금액 입력 이상");
+            throw new IllegalArgumentException(ErrorMessage.NOT_A_NUMBER.getMessage());
         }
     }
 
@@ -73,12 +71,12 @@ public class View {
 
                 // 번호 범위 체크 (1-45)
                 if (num < 1 || num > 45) {
-                    throw new IllegalArgumentException("당첨 번호는 1-45 사이");
+                    throw new IllegalArgumentException(ErrorMessage.NUMBER_OUT_OF_RANGE.getMessage());
                 }
 
                 // 중복 번호 체크
                 if (numbers.contains(num)) {
-                    throw new IllegalArgumentException("중복된 당첨 번호");
+                    throw new IllegalArgumentException(ErrorMessage.DUPLICATE_NUMBER.getMessage());
                 }
 
                 numbers.add(num);
@@ -86,13 +84,13 @@ public class View {
 
             // 당첨 번호 개수 체크
             if (numbers.size() != 6) {
-                throw new IllegalArgumentException("당첨 번호 개수 이상");
+                throw new IllegalArgumentException(ErrorMessage.INVALID_WINNING_NUMBERS_COUNT.getMessage());
             }
 
             return numbers;
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호 형식이 올바르지 않습니다");
+            throw new IllegalArgumentException(ErrorMessage.NOT_A_VALID_NUMBER.getMessage());
         }
     }
 
@@ -106,13 +104,13 @@ public class View {
 
             // 보너스 번호 범위 체크 (1-45)
             if (bonusNumber < 1 || bonusNumber > 45) {
-                throw new IllegalArgumentException("[ERROR] 보너스 번호가 1-45 사이가 아님");
+                throw new IllegalArgumentException(ErrorMessage.BONUS_NUMBER_OUT_OF_RANGE.getMessage());
             }
 
             return bonusNumber;
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호 형식이 올바르지 않습니다");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_BONUS_NUMBER.getMessage());
         }
     }
 

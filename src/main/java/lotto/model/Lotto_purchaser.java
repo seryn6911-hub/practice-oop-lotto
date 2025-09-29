@@ -27,7 +27,7 @@ public class Lotto_purchaser {
         return costOfPurchasing / 1000;
     }
 
-    // 랜덤 로또 생성
+    // 랜덤 로또 생성 Todo 로또머신으로 위치를 옮김
     public void randomPick() {
         List<Lotto> lottos = new ArrayList<>();
         int ticketCount = costToTicketNUM();
@@ -37,7 +37,7 @@ public class Lotto_purchaser {
         }
         this.lottos = lottos;
     }
-    //로또를 int로 반환
+    //로또를 int로 반환 todo 삭제하고 머신쪽에서 구현
     public List<List<Integer>> getLottos() {
         List<List<Integer>> lottos = new ArrayList<>();
         for (Lotto lotto : this.lottos) {
